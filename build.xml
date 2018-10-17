@@ -1,0 +1,114 @@
+<project name="deploy-apps" default="listapps">
+<property name="wls.username" value="ncodeadmin" />
+<property name="wls.password" value="ncodeadmin" />
+<property name="wls.hostname" value="192.168.128.6" />
+<property name="wls.port" value="2001" />
+<property name="deploy.target" value="ncodemng1-1,ncodemng1-2" />
+<!-- Here you can specify Either ClusterName, IndividualServerName Like "ManagedOne" or comma Seperated List of Managed/AdminServer -->
+<property name="deploy.name1" value="jsf" />
+<property name="deploy.source1" value="myfiles/jsf-1.2.war" />
+<property name="deploy.name2" value="jstl" />
+<property name="deploy.source2" value="myfiles/jstl-1.2.war" />
+<property name="deploy.name3" value="medrec" />
+<property name="deploy.source3" value="myfiles/medrec.ear" />
+<property name="deploy.name4" value="physician" />
+<property name="deploy.source4" value="myfiles/physician.ear" />
+<property name="deploy.name5" value="browser-starter" />
+<property name="deploy.source5" value="myfiles/browser-starter.war" />
+ 
+<!-- Setting TaskDefinition -->
+<taskdef name="wldeploy" classname="weblogic.ant.taskdefs.management.WLDeploy">
+<classpath>
+<pathelement location="/home/ncodeit/bea103g/wlserver_10.3/server/lib/weblogic.jar"/>
+</classpath>
+</taskdef>
+ 
+<!-- Deploying Applications  -->
+<target name="deployall">
+<wldeploy action="deploy"
+          name="${deploy.name1}"
+          source="${deploy.source1}"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+	  library="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="deploy"
+          name="${deploy.name2}"
+          source="${deploy.source2}"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+	  library="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="deploy"
+          name="${deploy.name3}"
+          source="${deploy.source3}"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="deploy"
+          name="${deploy.name4}"
+          source="${deploy.source4}"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="deploy"
+          name="${deploy.name5}"
+          source="${deploy.source5}"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+</target>
+ 
+ 
+<!-- Uneploying Applications  -->
+<target name="undeployall">
+<wldeploy action="undeploy"
+          name="${deploy.name5}"
+          failonerror="false"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="undeploy"
+          name="${deploy.name4}"
+          failonerror="false"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="undeploy"
+          name="${deploy.name3}"
+          failonerror="false"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="undeploy"
+          name="${deploy.name2}"
+          failonerror="false"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+<wldeploy action="undeploy"
+          name="${deploy.name1}"
+          failonerror="false"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}" targets="${deploy.target}" />
+	</target>
+
+<target name="listapps">
+<wldeploy action="listapps"
+          user="${wls.username}"
+          password="${wls.password}"
+          verbose="true"
+          adminurl="t3://${wls.hostname}:${wls.port}"/>
+</target>
+	</project>
